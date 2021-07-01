@@ -1,15 +1,15 @@
 import React from "react";
 import "./App.css";
-import Header from './Header'
-import Player from "./Player"
+import Header from "./Header";
+import Player from "./Player";
 
 class App extends React.Component {
 	state = {
 		players: [
-			{ name: "Sayeed", id: 1 },
-			{ name: "Elena", id: 2 },
-			{ name: "Edu", id: 3 },
-			{ name: "Beron", id: 4 },
+			{ name: "Sayeed", id: 1, score: 0 },
+			{ name: "Elena", id: 2, score: 0 },
+			{ name: "Edu", id: 3, score: 0 },
+			{ name: "Beron", id: 4, score: 0 },
 		],
 	};
 	handleRemovePlayer = id => {
@@ -31,6 +31,7 @@ class App extends React.Component {
 							key={player.id.toString()}
 							id={player.id}
 							removePlayer={this.handleRemovePlayer}
+							score={player.score}
 						/>
 					);
 				})}
