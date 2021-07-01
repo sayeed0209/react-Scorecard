@@ -1,3 +1,5 @@
+import React from "react";
+import "./App.css";
 const Header = props => {
 	return (
 		<header>
@@ -98,4 +100,4 @@ class App extends React.Component {
 		);
 	}
 }
-ReactDOM.render(<App />, document.getElementById("root"));
+export default App;
