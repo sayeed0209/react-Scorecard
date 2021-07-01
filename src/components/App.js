@@ -1,70 +1,8 @@
 import React from "react";
 import "./App.css";
-const Header = props => {
-	return (
-		<header>
-			<h1>{props.title}</h1>
-			<span className='stats'>Player: {props.totalPlayers}</span>
-		</header>
-	);
-};
-class Counter extends React.Component {
-	state = {
-		score: 0,
-	};
+import Header from './Header'
+import Player from "./Player"
 
-	onPlusButtonClick = () => {
-		this.setState(prevState => {
-			return {
-				score: ++prevState.score,
-			};
-		});
-	};
-	onMinusButtonClick = () => {
-		this.setState(prevState => {
-			if (prevState.score > 0) {
-				return { score: --prevState.score };
-			}
-		});
-	};
-
-	render() {
-		return (
-			<div className='counter'>
-				<button
-					className='counter-action decrement'
-					onClick={this.onMinusButtonClick}
-				>
-					-
-				</button>
-				<span className='counter-score'>{this.state.score}</span>
-				<button
-					className='counter-action increment'
-					onClick={this.onPlusButtonClick}
-				>
-					+
-				</button>
-			</div>
-		);
-	}
-}
-const Player = props => {
-	console.log(props.removePlayer);
-	return (
-		<div className='player'>
-			<span className='player-name'>
-				<button
-					className='remove-player'
-					onClick={() => props.removePlayer(props.id)}
-				>
-					x
-				</button>
-				{props.name}
-			</span>
-			<Counter />
-		</div>
-	);
-};
 class App extends React.Component {
 	state = {
 		players: [
