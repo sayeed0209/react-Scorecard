@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import Header from "./Header";
 import Player from "./Player";
+import AddPlayerForm from "./AddPlayerForm";
 
 class App extends React.Component {
 	state = {
@@ -12,6 +13,25 @@ class App extends React.Component {
 			{ name: "Beron", id: 4, score: 0 },
 		],
 	};
+	onPlusButtonClick = (index, delta) => {
+		this.setState(prevState => {
+			// New 'players' array – a copy of the previous `players` state
+			const updatedPlayers = [...prevState.players];
+
+			// A copy of the player object we're targeting
+			const updatedPlayer = { ...updatedPlayers[index] };
+			// Update the target player's score
+			updatedPlayer.score += delta;
+			// Update the 'players' array with the target player's latest score
+			updatedPlayers[index] = updatedPlayer;
+			// Update the `players` state without mutating the original state
+			return {
+				players: updatedPlayers,
+			};
+		});
+	};
+	// player id counter
+	prevPlayerId = 4;
 	handleRemovePlayer = id => {
 		this.setState(prevState => {
 			return {
@@ -19,12 +39,23 @@ class App extends React.Component {
 			};
 		});
 	};
-
+	handelAddPlayer = name => {
+		this.setState({
+			players: [
+				...this.state.players,
+				{
+					name: name,
+					score: 0,
+					id: (this.prevPlayerId += 1),
+				},
+			],
+		});
+	};
 	render() {
 		return (
 			<div className='scoreboard'>
-				<Header title='Scoreboard' totalPlayers={this.state.players.length} />
-				{this.state.players.map(player => {
+				<Header title='Scoreboard' totalPlayers={this.state.players} />
+				{this.state.players.map((player, index) => {
 					return (
 						<Player
 							name={player.name}
@@ -32,9 +63,12 @@ class App extends React.Component {
 							id={player.id}
 							removePlayer={this.handleRemovePlayer}
 							score={player.score}
+							changeScore={this.onPlusButtonClick}
+							index={index}
 						/>
 					);
 				})}
+				<AddPlayerForm addPlayer={this.handelAddPlayer} />
 			</div>
 		);
 	}
