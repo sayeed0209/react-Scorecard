@@ -1,27 +1,23 @@
 import React from "react";
-class AddPlayerForm extends React.Component {
-	state = { value: "" };
-	onInputChange = e => {
-		this.setState({ value: e.target.value });
-	};
-	onSubmitAddPlayer = e => {
+
+const AddPlayerForm = ({ addPlayer }) => {
+	let playerInput = React.createRef();
+	let handleSubmit = e => {
 		e.preventDefault();
-		this.props.addPlayer(this.state.value);
-		this.setState({ value: "" });
+		addPlayer(playerInput.current.value);
+		e.currentTarget.reset();
 	};
 
-	render() {
-		return (
-			<form onSubmit={this.onSubmitAddPlayer}>
-				<input
-					type='text'
-					placeholder='Enter a Player Name'
-					value={this.state.value}
-					onChange={this.onInputChange}
-				/>
-				<input type='submit' value='Add Player' />
-			</form>
-		);
-	}
-}
+	return (
+		<form onSubmit={handleSubmit}>
+			<input
+				type='text'
+				ref={playerInput}
+				placeholder="Enter a player's name"
+			/>
+
+			<input type='submit' value='Add Player' />
+		</form>
+	);
+};
 export default AddPlayerForm;

@@ -40,15 +40,17 @@ class App extends React.Component {
 		});
 	};
 	handelAddPlayer = name => {
-		this.setState({
-			players: [
-				...this.state.players,
-				{
-					name: name,
-					score: 0,
-					id: (this.prevPlayerId += 1),
-				},
-			],
+		this.setState(prevState => {
+			return {
+				players: [
+					...prevState.players,
+					{
+						name: name,
+						score: 0,
+						id: (this.prevPlayerId += 1),
+					},
+				],
+			};
 		});
 	};
 	render() {
